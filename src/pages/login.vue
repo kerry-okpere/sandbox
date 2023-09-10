@@ -2,11 +2,12 @@
 import Card from "@/components/Cards.vue"
 import Typography from "@/components/Typography.vue";
 import TextField from "@/components/Textfield/index.vue"
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import Button from "@/components/Button.vue";
 import Link from "@/components/Link.vue"
 import { useRouter } from "vue-router";
 import { useLoginStore } from "@/store/auth";
+import { PASSWORD_LENGTH } from "@/constants"
 
 const router = useRouter()
 const store = useLoginStore()
@@ -19,6 +20,8 @@ const state = reactive({
   loading: false
 })
 
+const formIsValid = computed(() => !state.form.email || state.form.password.length >= PASSWORD_LENGTH)
+
 const handleSubmit = async (event: Event) => {
   event.preventDefault()
 
@@ -28,23 +31,75 @@ const handleSubmit = async (event: Event) => {
   state.loading = false
   if (res?.status) router.push({ name: 'Otp' })
 }
+
 </script>
 <template>
-  <Card>
-    <form :onsubmit="handleSubmit">
-      <Typography>Sign in</Typography>
+  <Card class="login">
+    <form class="login__form" :onsubmit="handleSubmit">
+      <Typography class="login__heading" as="h1" variant="xLarge" weight="900">Sign in</Typography>
 
-      <TextField id="email" label="Email" v-model="state.form.email" />
-      <TextField id="password" label="Password" v-model="state.form.password" />
+      <TextField 
+        class="login__input" 
+        id="email" 
+        label="Email" 
+        placeholder="eg. john@gmail.com"
+        v-model="state.form.email" 
+      />
+      <TextField 
+        class="login__input" 
+        id="password" 
+        label="Password" 
+        placeholder="(8+ characters)"
+        v-model="state.form.password" 
+      />
 
+      <div>
+        <Button is-full-width type="submit" :disabled="formIsValid">
+          <template v-if="state.loading">Loading...</template>
+          <template v-else>Sign in</template>
+        </Button>
+        <Link class="login__link--forget" to="/auth/login">Forgot you password?</Link>
+      </div>
 
-      <Button type="submit" :disabled="!state.form.email || !state.form.password">
-        <template v-if="state.loading">Loading...</template>
-        <template v-else>Sign in</template>
+      <Button as="router-link" to="#" class="login__action--create" variant="secondary">
+        <Typography 
+          as="span" 
+          variant="medium" 
+          weight="600">
+          Don’t have an account? Create one
+        </Typography>
       </Button>
-      <Link to="/auth/login">Forgot you password?</Link>
-
-      <Button type="button">Don’t have an account? Create one</Button>
     </form>
   </Card>
 </template>
+<style lang="scss" scoped>
+.login {
+  &__form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: spacing(3);
+  }
+
+  &__heading {
+    margin-top: spacing(1);
+  }
+
+  &__input {
+    text-align: left;
+  }
+
+  &__link--forget {
+    margin-top: spacing(2);
+    display: block;
+  }
+
+  &__action--create {
+    margin-top: spacing(1);
+    
+    span {
+      line-height: spacing(3.5);
+    }
+  }
+}
+</style>
