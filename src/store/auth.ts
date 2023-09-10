@@ -9,19 +9,19 @@ import {
 import { defineStore } from "pinia";
 
 export const useLoginStore = defineStore("login", {
-  state: (): { email: string } => ({ email: "" }),
+  state: (): { email: string, password: string } => ({ email: "", password: "" }),
   getters: {
     getEmail(): string {
-      console.log('===email', this.email)
       return this.email;
     },
     isLoggedIn(): boolean {
-      return !!this.email
+      return !!this.email && !!this.password
     }
   },
   actions: {
     async login(form: LoginData) {
       this.email = form.email
+      this.password = form.password
 
       try {
         const res = await api.post<LoginResponse>(Routes.AuthLogin, form);
