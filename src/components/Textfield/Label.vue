@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Typography from '@/components/Typography.vue';
+
+</script>
 <template>
-  <label><slot /></label>
+  <Typography as="label" weight="600">
+    <slot />
+  </Typography>
 </template>
