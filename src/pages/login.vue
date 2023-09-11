@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Card from "@/components/Cards.vue"
+import Card from "@/components/Card.vue"
 import Typography from "@/components/Typography.vue";
 import TextField from "@/components/Textfield/index.vue"
 import { computed, reactive } from "vue";
@@ -20,7 +20,7 @@ const state = reactive({
   loading: false
 })
 
-const formIsValid = computed(() => !state.form.email || state.form.password.length >= PASSWORD_LENGTH)
+const formIsValid = computed(() => Boolean(state.form.email) && state.form.password.length >= PASSWORD_LENGTH)
 
 const handleSubmit = async (event: Event) => {
   event.preventDefault()
@@ -54,7 +54,8 @@ const handleSubmit = async (event: Event) => {
       />
 
       <div>
-        <Button is-full-width type="submit" :disabled="formIsValid">
+        <Button is-full-width type="submit" :disabled="!formIsValid">
+          <!-- Todo: replace loading -->
           <template v-if="state.loading">Loading...</template>
           <template v-else>Sign in</template>
         </Button>

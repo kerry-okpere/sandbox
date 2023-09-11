@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Card from "@/components/Cards.vue"
+import Card from "@/components/Card.vue"
 import Typography from "@/components/Typography.vue";
 import { ref } from "vue";
 import Button from "@/components/Button.vue";
@@ -54,6 +54,7 @@ const resendOtp = async () => {
         <div class="otp__resend">
           <!-- Todo: handle resending of email -->
           <Typography color="gray500" variant="small">Didn’t receive any code? </Typography>
+          <!-- Todo: add loading -->
           <Button class="otp__resend--btn" color="secondary" type="button" variant="text" @click="resendOtp">
             Resend
           </Button>
