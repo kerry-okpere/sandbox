@@ -15,6 +15,11 @@ export enum ButtonElement {
   Button = "button",
 }
 
+export enum LinkElement {
+  Link = "router-link",
+  Anchor = "a",
+}
+
 export enum TypographyVariant {
   xxLarge = "xxLarge",
   xLarge = "xLarge",
@@ -41,6 +46,7 @@ export enum Colors {
   gray400 = "gray400",
   gray500 = "gray500",
   gray600 = "gray600",
+  gray800= "gray800",
   primary = "primary",
   secondary = "secondary",
   success100 = "success100",

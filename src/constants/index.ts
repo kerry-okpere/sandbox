@@ -31,6 +31,7 @@ export const ColorMap = {
   [Colors.gray400]: "#D1D5DB",
   [Colors.gray500]: "#9CA3AF",
   [Colors.gray600]: "#6B7280",
+  [Colors.gray800]: "#374151",
   [Colors.primary]: "#AEF378",
   [Colors.secondary]: "#476EF9",
   [Colors.success100]: "#EDF7F1",
@@ -40,3 +41,7 @@ export const ColorMap = {
 export const PASSWORD_LENGTH = 8
 
 export const OTP_LENGTH = 6
+
+export const DEFAULT_BUSINESS = 0
+
+export const HEADER_HEIGHT = '67px'
