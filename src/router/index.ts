@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AuthLayout from "@/layout/auth.vue";
+import DefaultLayout from "@/layout/default.vue";
 import { useAuthStore, useLoginStore } from "@/store/auth";
 
 const routes = [
@@ -23,11 +24,17 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: () => import("@/pages/dashboard.vue"),
+    meta: {
+      layout: DefaultLayout,
+    },
   },
   {
     path: "/transaction/fx",
     name: "Fx",
     component: () => import("@/pages/foreign-exchange.vue"),
+    meta: {
+      layout: DefaultLayout,
+    },
   },
   {
     path: "/:pathMatch(.*)*",
