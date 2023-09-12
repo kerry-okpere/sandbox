@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { PropType } from 'vue';
-import { Colors, TypographyVariant } from '@/types';
+import { PropType, computed } from 'vue';
+import { Colors, TypographyVariant, LinkElement } from '@/types';
 import { ColorMap, FontSizeMap } from '@/constants';
 
 const props = defineProps({
+  as: {
+    type: String as PropType<`${LinkElement}`>,
+    default: LinkElement.Link
+  },
   to: {
     type: String,
     required: true
@@ -26,11 +30,17 @@ const props = defineProps({
 
 const fontSize = FontSizeMap[props.variant]
 const fontColor = ColorMap[props.color]
+
+const link = computed(() => {
+  if (props.as === LinkElement.Anchor) return { href: props.to }
+
+  return {to: props.to}
+})
 </script>
 <template>
-  <RouterLink class="link" :to="to">
+  <Component :is="as" class="link" v-bind="link">
     <slot />
-  </RouterLink>
+  </Component>
 </template>
 <style lang="scss" scoped>
 .link {
