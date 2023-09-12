@@ -42,6 +42,7 @@ const handleSubmit = async (event: Event) => {
         class="login__input" 
         id="email" 
         label="Email" 
+        type="email"
         placeholder="eg. john@gmail.com"
         v-model="state.form.email" 
       />
@@ -49,6 +50,7 @@ const handleSubmit = async (event: Event) => {
         class="login__input" 
         id="password" 
         label="Password" 
+        type="password"
         placeholder="(8+ characters)"
         v-model="state.form.password" 
       />
