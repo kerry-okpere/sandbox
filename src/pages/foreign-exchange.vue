@@ -112,6 +112,18 @@ const handleCurrencyChange = async (type: 'source' | 'target', currency: string)
   handleUpdate(null, source.amount)
 }
 
+function createDebounce() {
+  let timeout: any = null;
+  return function (fnc: Function, delayMs?: number) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      fnc();
+    }, delayMs || 500);
+  };
+}
+
+const debounce = createDebounce()
+
 onMounted(() => {
   setDefaults()
 })
@@ -142,7 +154,7 @@ onMounted(() => {
             :model-value="source.amount"
             :selected="source.currency"
             :currencies="sourceCurrencies"
-            @update:model-value="handleUpdate('source', $event)" 
+            @update:model-value="debounce(() => handleUpdate('source', $event))" 
             @update:selected="handleCurrencyChange('source', $event)"
            />
 
