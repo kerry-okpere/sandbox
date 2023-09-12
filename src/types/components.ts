@@ -6,6 +6,7 @@ export type SelectOption = {
 export enum TypographyElement {
   Paragraph = "p",
   Heading1 = "h1",
+  Heading3 = "h3",
   Span = "span",
   Label = "label",
 }
@@ -33,12 +34,18 @@ export enum TypographyVariant {
 export enum ButtonVariant {
   Primary = "primary",
   Secondary = "secondary",
-  Text = 'text'
+  Text = "text",
+}
+
+export enum StepperDirection {
+  Horizontal = "horizontal",
+  Vertical = "vertical",
 }
 
 export enum Colors {
   text900 = "text900",
   white = "white",
+  gray50 = "gray50",
   gray100 = "gray100",
   gray150 = "gray150",
   gray200 = "gray200",
@@ -46,10 +53,9 @@ export enum Colors {
   gray400 = "gray400",
   gray500 = "gray500",
   gray600 = "gray600",
-  gray800= "gray800",
+  gray800 = "gray800",
   primary = "primary",
   secondary = "secondary",
   success100 = "success100",
   success900 = "success900",
 }
-

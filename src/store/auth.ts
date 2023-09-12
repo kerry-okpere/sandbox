@@ -1,6 +1,8 @@
 import api from "@/api";
+import { DEFAULT_BUSINESS } from "@/constants";
 import {
   AuthenticationResponse,
+  Business,
   LoginData,
   LoginResponse,
   Routes,
@@ -16,7 +18,7 @@ export const useLoginStore = defineStore("login", {
     },
     isLoggedIn(): boolean {
       return !!this.email && !!this.password
-    }
+    },
   },
   actions: {
     async login(form: LoginData) {
@@ -45,6 +47,9 @@ export const useAuthStore = defineStore("auth", {
     isAuthenticated(): boolean {
       return Boolean(this.user?.token?.length);
     },
+    defaultBusiness(): Business | undefined {
+      return this.user?.businesses[DEFAULT_BUSINESS]
+    }
   },
   actions: {
     async authenticate(otp: string) {
