@@ -57,13 +57,32 @@ const navLinks = [{
 ]
 
 const value = ref(true)
+const activeDropdown = ref<null | number>(null)
+
+const toggleNestedLink = (index: number) => {
+  activeDropdown.value = activeDropdown.value === index ? null : index
+}
 </script>
 <template>
   <nav class="nav">
     <ul>
-      <!-- Todo: support nested Links -->
-      <li v-for="{ name, to, nestedLink, icon } in navLinks">
-        <NavigationLink :to="to" :icon="icon" :title="name" :nestedLink="nestedLink" />
+      <li v-for="({ name, to, nestedLink, icon }, index) in navLinks">
+        <NavigationLink 
+          :to="to" 
+          :icon="icon" 
+          :title="name" 
+          :isCollapsible="Boolean(nestedLink?.length)" 
+          @click="toggleNestedLink(index)" 
+        />
+        <ul v-if="activeDropdown === index">
+          <li v-for="link in nestedLink" >
+            <NavigationLink 
+              is-nexted-link 
+              :to="link.href" 
+              :title="link.name" 
+            />
+          </li>
+        </ul>
       </li>
     </ul>
 
