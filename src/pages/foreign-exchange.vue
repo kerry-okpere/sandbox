@@ -26,6 +26,7 @@ const target = reactive({
 const currency = ref('')
 const loadingCurrency = ref(false)
 const loadingQuote = ref(false)
+const rate = ref(0)
 
 const currenciesOptions = computed(() => {
   return store.currencies.map(({ currency: value, }) => ({ name: value, value }))
@@ -77,6 +78,7 @@ const updateTargetAmount = async (amount: number) => {
 
   if (res) {
     target.amount = res.target.human_readable_amount
+    rate.value = res.rate
   }
 }
 
@@ -92,7 +94,17 @@ const handleUpdate = (amount: number) => {
   updateTargetAmount(actualAmount)
 }
 
-const rate = computed(() => Number(source.amount) / Number(target.amount))
+const handleCurrencyChange = async (type: 'source' | 'target', currency: string) => {
+  if (!currency) return
+
+  if (type === 'source') {
+    source.currency = currency
+  } else {
+    target.currency = currency
+  }
+
+  handleUpdate(source.amount)
+}
 
 onMounted(() => {
   if (!store.currencies.length) setDefaults()
@@ -118,9 +130,16 @@ onMounted(() => {
       <Card has-drop-shadow class="fx__converter">
         <Typography v-if="loadingCurrency">Loading</Typography>
         <template v-else>
-          <CurrencyInput id="source" label="You pay" :model-value="source.amount"
-            @update:model-value="handleUpdate($event)" :selected="source.currency" @update:selected="handleCurrencyChange"
-            :currencies="sourceCurrencies" />
+          <CurrencyInput 
+            id="source" 
+            label="You pay" 
+            :model-value="source.amount"
+            :selected="source.currency"
+            :currencies="sourceCurrencies"
+            @update:model-value="handleUpdate($event)" 
+            @update:selected="handleCurrencyChange('source', $event)"
+           />
+
           <VerticalStepper
             :content="[{ label: 'exchange', icon: Close }, { label: 'fee', icon: Minus }, { label: 'time', icon: Clock }]">
             <template #exchange>
@@ -136,8 +155,17 @@ onMounted(() => {
               <Typography color="gray500">2 min</Typography>
             </template>
           </VerticalStepper>
-          <CurrencyInput :model-value="target.amount" disabled id="target" label="You get" :selected="target.currency"
-            @update:selected="handleCurrencyChange" :currencies="targetCurrencies" />
+
+          <CurrencyInput 
+            id="target" 
+            label="You get"
+            disabled
+            :model-value="target.amount" 
+            :currencies="targetCurrencies"  
+            :selected="target.currency"
+            @update:selected="handleCurrencyChange('target', $event)" 
+          />
+
           <Button class="fx__submit" is-full-width>Convert</Button>
         </template>
       </Card>
@@ -164,7 +192,6 @@ onMounted(() => {
     display: flex;
     flex-wrap: wrap;
     padding-right: spacing(2);
-    height: 462px; //permanent height
   }
 
   &__ilustration {
@@ -176,6 +203,7 @@ onMounted(() => {
     margin-top: spacing(-1);
     align-self: flex-start;
     flex: 1;
+    height: 462px; //permanent height
   }
 
   &__submit {
