@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import Select from './Select.vue';
 import Typography from './Typography.vue';
-import { PropType } from 'vue';
+import { PropType, computed } from 'vue';
 import { SelectOption, TypographyVariant } from '@/types';
-import { FontSizeMap } from '@/constants';
+import { FLAGS, FontSizeMap } from '@/constants';
+import Avatar from './Avatar.vue';
 
-defineProps({
+const props = defineProps({
   id: {
     type: String,
     required: true
@@ -30,6 +31,13 @@ const handleInputChange = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
 
+const currentFlag = computed(() => {
+  const key = props.selected as keyof typeof FLAGS
+  return FLAGS[key]
+})
+
+console.log(currentFlag)
+
 </script>
 <template>
   <div class="input">
@@ -37,7 +45,11 @@ const handleInputChange = (event: Event) => {
     <input :disabled="disabled" :value="modelValue" placeholder="0" type="number" id="id" @input="handleInputChange($event)">
 
     <Select class="input__select" :modelValue="selected" name="currency-selector" :id="`${id}-currency-selector`"
-      @update:modelValue="$emit('update:selected', $event)" :options="currencies" />
+      @update:modelValue="$emit('update:selected', $event)" :options="currencies">
+      <template #icon>
+        <Avatar class="input__select--flag" dimensions="16px" v-if="selected" :src="currentFlag" />
+      </template>
+    </Select>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -75,14 +87,12 @@ const handleInputChange = (event: Event) => {
   &__select {
     position: absolute;
     right: spacing(3);
-    padding-right: spacing(2.5);
     top: 50%;
     transform: translateY(calc(-50%));
-    padding: spacing(1.25);
-    border-radius: spacing(3);
-    background-color: $gray300;
-    width: spacing(11);
-    font-size: 600;
+
+    &--flag {
+      margin-left: spacing(1);
+    }
   }
 }
 </style>

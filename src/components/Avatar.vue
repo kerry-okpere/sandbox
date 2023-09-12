@@ -8,24 +8,40 @@ const props = defineProps({
   },
   src: {
     type: String,
+  },
+  dimensions: {
+    type: String,
+    default: '32px'
   }
 })
 
 const initial = computed(() => props.name?.charAt(0))
 </script>
 <template>
-  <img v-if="src" />
+  <div class="image" v-if="src">
+    <img :src="src" />
+  </div>
   <Typography v-else class="initial" weight="600" variant="small" color="primary">{{ initial }}</Typography>
 </template>
 <style lang="scss" scoped>
-img {
+.image {
   background-color: $gray500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 }
 
-.initial,
-img {
-  height: spacing(4);
-  width: spacing(4);
+.image, .initial {
+  height: v-bind(dimensions);
+  width: v-bind(dimensions);
   border-radius: 50%;
 }
 

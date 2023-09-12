@@ -20,7 +20,15 @@ defineProps({
   title: {
     type: String
   },
-  modelValue: String
+  modelValue: String,
+  width: {
+    type: String,
+    default: '98px'
+  },
+  height: {
+    type: String,
+    default: '34px'
+  }
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -31,28 +39,38 @@ const handleChange = (event: Event) =>
 </script>
 <template>
   <div class="select">
-    <Label class="select__label" weight="500" :for="id">{{ title }}</Label>
+    <Label v-if="title" class="select__label" weight="500" :for="id">{{ title }}</Label>
+    <span class="select__icon">
+      <slot name="icon" />
+    </span>
     <select :value="modelValue" class="select__element" :name="name" :id="id" @change="handleChange($event)">
       <option v-for="({ name, value }, index) in options" :key="index" :value="value">{{ name }}</option>
     </select>
-    <Chevron />
+    <Chevron height="16" width="16" class="select__caret" />
   </div>
 </template>
 <style lang="scss" scoped>
 .select {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: spacing(1);
+  background-color: $gray300;
+  border-radius: spacing(3);
+  width: v-bind(width);
+  height: v-bind(height);
 
   &__element {
     background-color: transparent;
     border: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     text-indent: 1px;
     color: $text900;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 14px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 100%;
+    width: 100%;
+    padding-left: spacing(1);
 
     &::-ms-expand {
       display: none;
@@ -64,6 +82,9 @@ const handleChange = (event: Event) =>
     }
   }
 
-  &__label {}
+  &__caret {
+    position: absolute;
+    right: spacing(1);
+  }
 }
 </style>

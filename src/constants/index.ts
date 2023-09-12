@@ -65,3 +65,11 @@ export const MONTH_NAMES = [
 ];
 
 export const FEE = 24
+
+export const FLAGS = {
+  'NGN': 'https://flagcdn.com/72x54/ng.png',
+  'KES': 'https://flagcdn.com/72x54/ke.png',
+  'USD': 'https://flagcdn.com/72x54/us.png',
+  'XAF': 'https://flagcdn.com/72x54/za.png',
+  'GHS': 'https://flagcdn.com/72x54/gh.png'
+}
