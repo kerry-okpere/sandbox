@@ -82,13 +82,19 @@ const updateTargetAmount = async (amount: number) => {
   }
 }
 
-const handleUpdate = (amount: number) => {
+const handleUpdate = (type: 'source' | 'target' | null, amount: number) => {
   const actualAmount = inMultipleOf100(amount)
 
   if (!actualAmount) {
     source.amount = 0
     target.amount = 0
     return
+  }
+
+  if (type === 'source') {
+    source.amount = amount
+  } else if (type === 'target') {
+    target.amount = amount
   }
 
   updateTargetAmount(actualAmount)
@@ -103,7 +109,7 @@ const handleCurrencyChange = async (type: 'source' | 'target', currency: string)
     target.currency = currency
   }
 
-  handleUpdate(source.amount)
+  handleUpdate(null, source.amount)
 }
 
 onMounted(() => {
@@ -136,7 +142,7 @@ onMounted(() => {
             :model-value="source.amount"
             :selected="source.currency"
             :currencies="sourceCurrencies"
-            @update:model-value="handleUpdate($event)" 
+            @update:model-value="handleUpdate('source', $event)" 
             @update:selected="handleCurrencyChange('source', $event)"
            />
 
