@@ -46,6 +46,10 @@ const usersFullName = computed(() => `${store.user?.first_name} ${store.user?.la
   justify-content: space-between;
   border-bottom: 1px solid $gray150;
   height: v-bind(HEADER_HEIGHT);
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: $white;
 
   // Todo: create a mixin for this
   padding: spacing(1.625) spacing(2.5);

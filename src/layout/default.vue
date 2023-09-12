@@ -20,11 +20,13 @@ import { HEADER_HEIGHT } from '@/constants/index'
 // Todo: support responsive design
 .page {
   display: flex;
-  height: calc(100vh - v-bind(HEADER_HEIGHT));
+  height: 100vh;
 
   // Todo: create a mixin for this
-  padding: spacing(2) spacing(2.5);
-  padding-bottom: spacing(6);
+  padding-left: spacing(2.5);
+  padding-right: spacing(2.5);
+  padding-bottom: spacing(4);
+  padding-top: calc(v-bind(HEADER_HEIGHT) + spacing(3));
 
   &__nav {
     min-width: spacing(25);
@@ -32,8 +34,15 @@ import { HEADER_HEIGHT } from '@/constants/index'
 
   &__content {
     flex: 1;
-    padding-right: spacing(4);
     padding-left: spacing(4);
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+
   }
 }
 </style>
