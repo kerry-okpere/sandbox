@@ -57,6 +57,7 @@ const handleChange = (event: Event) =>
   border-radius: spacing(3);
   width: v-bind(width);
   height: v-bind(height);
+  position: relative;
 
   &__element {
     background-color: transparent;

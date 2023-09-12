@@ -2,7 +2,7 @@
 import Link from "@/components/Link.vue";
 import { footerLink } from "@/constants/index";
 import SelectComponent from "./Select.vue";
-const region = [{ name: 'Nigeria', value: 'Nigeria' }]
+const region = [{ name: 'Nigeria', value: 'Nigeria' }, { name: 'Change region', value: '' }]
 
 </script>
 <template>
@@ -11,7 +11,7 @@ const region = [{ name: 'Nigeria', value: 'Nigeria' }]
       <Link class="footer__link" color="text900" v-for="({ name, href }, index) of footerLink" :key="index" :to="href">
       {{ name }}
       </Link>
-      <SelectComponent class="footer__select" title="Change region" name="region" id="region" :options="region" />
+      <SelectComponent model-value="" class="footer__select" name="region" id="region" :options="region" />
     </div>
   </footer>
 </template>
@@ -28,12 +28,25 @@ footer {
       border-radius: spacing(6.25);
       padding-top: spacing(1);
       padding-bottom: spacing(1);
+      display: flex;
     }
 
-    &__select, &__link {
+    &__select,
+    &__link {
       padding-left: spacing(1.5);
       padding-right: spacing(1.5);
     }
+
+    &__select {
+      width: auto;
+      height: auto;
+      background-color: transparent;
+    }
   }
+}
+
+:deep(.select__element) {
+  font-weight: 500 !important;
+  width: spacing(16);
 }
 </style>
