@@ -2,7 +2,7 @@
 import Button from "@/components/Button.vue";
 import Card from "@/components/Card.vue";
 import Chevron from "@/components/Icons/Chevron.vue";
-import Stepper from "@/components/Stepper.vue";
+import Stepper from "@/components/HorizontalStepper.vue";
 import Typography from "@/components/Typography.vue";
 import TransactionChart from "@/components/TransactionChart.vue";
 import Report from "@/components/Report.vue";
@@ -106,8 +106,8 @@ const reports = [
     <div class="reports__group">
       <!--Todo: use precision js -->
       <!--Todo: format with currency -->
-      <Report v-for="report in reports" :title="report.title" :subtitle="formatter.format(report.amount)"
-        :date="report.lastUpdated">
+      <Report v-for="(report, index) in reports" :key="index" :title="report.title"
+        :subtitle="formatter.format(report.amount)" :date="report.lastUpdated">
         <template #tag>
           <Tag :icon="FilledArrow" :title="`${report.percentage}%`" />
         </template>
@@ -174,7 +174,7 @@ const reports = [
   display: flex;
   flex-direction: column;
   gap: spacing(2);
-  
+
   &__group {
     flex-wrap: wrap;
     display: flex;
@@ -200,4 +200,5 @@ const reports = [
     background-color: $gray300;
     gap: spacing(1);
   }
-}</style>
+}
+</style>

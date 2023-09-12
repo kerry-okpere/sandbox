@@ -1,9 +1,42 @@
-export type LoginResponse = {
+export type ServerResponse = {
   status: boolean;
   message: string;
 };
 
-export type AuthenticationResponse = LoginResponse & {
+export type Currency = {
+  currency: string;
+  name: string;
+  symbol: string;
+};
+
+export type CurrencyQuote = {
+  currency: string;
+  amount: number;
+  human_readable_amount: number;
+};
+
+export type Quote = {
+  reference: string;
+  source: CurrencyQuote;
+  target: CurrencyQuote;
+  rate: number;
+};
+
+export type CurrenciesResponse = ServerResponse & {
+  data: Currency[];
+};
+
+export type QuoteResponse = ServerResponse & {
+  data: Quote;
+};
+
+export type QuotePayload = {
+  amount: number;
+  source_currency: string;
+  target_currency: string;
+};
+
+export type AuthenticationResponse = ServerResponse & {
   data: User;
 };
 

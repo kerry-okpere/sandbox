@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { PropType } from 'vue';
-import { StepperDirection } from '@/types'
 import Typography from './Typography.vue';
 
 defineProps({
@@ -11,10 +9,6 @@ defineProps({
   activePosition: {
     type: Number,
     default: -1
-  },
-  direction: {
-    type: String as PropType<`${StepperDirection}`>,
-    default: StepperDirection.Horizontal
   },
   gap: {
     type: String,
@@ -29,7 +23,7 @@ defineProps({
 </script>
 <template>
   <ul class="stepper">
-    <li v-for="(item, index) in content">
+    <li v-for="(item, index) in content" :key="index">
       <Typography as="span" weight="700" :class="{ active: index <= activePosition }" class="stepper__item">
         {{ item }}
       </Typography>

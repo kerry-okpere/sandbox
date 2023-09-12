@@ -4,14 +4,14 @@ import Typography from "@/components/Typography.vue";
 import { ref } from "vue";
 import Button from "@/components/Button.vue";
 import { useRouter } from "vue-router";
-import { useAuthStore, useLoginStore } from "@/store/auth";
+import { useAuthStore, useStore } from "@/store/index";
 import OtpInput from "@/components/OtpInput.vue"
 import Arrow from "@/components/Icons/Arrow.vue";
 import { OTP_LENGTH } from "@/constants"
 
 const router = useRouter()
 const store = useAuthStore()
-const loginStore = useLoginStore();
+const loginStore = useStore();
 
 const otp = ref('')
 const loading = ref(false)
@@ -113,4 +113,4 @@ const resendOtp = async () => {
 
   }
 }
-</style>
+</style>@/store

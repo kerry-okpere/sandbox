@@ -37,6 +37,8 @@ export enum ButtonVariant {
   Text = "text",
 }
 
+export type VerticalStepperContent = { icon: object; label: string };
+
 export enum StepperDirection {
   Horizontal = "horizontal",
   Vertical = "vertical",

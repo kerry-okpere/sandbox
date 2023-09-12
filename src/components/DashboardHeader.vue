@@ -2,7 +2,7 @@
 import MapleRad from "@/components/Icons/Logo.vue";
 import Avatar from "@/components/Avatar.vue";
 import Link from "@/components/Link.vue";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/store/index";
 import Bell from "./Icons/Bell.vue";
 import Dev from "./Icons/Dev.vue";
 import Chevron from "./Icons/Chevron.vue";
@@ -75,4 +75,4 @@ const usersFullName = computed(() => `${store.user?.first_name} ${store.user?.la
     gap: spacing(0.5);
   }
 }
-</style>
+</style>@/store

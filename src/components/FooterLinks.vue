@@ -8,7 +8,7 @@ const region = [{ name: 'Nigeria', value: 'Nigeria' }]
 <template>
   <footer>
     <div class="footer__wrapper">
-      <Link class="footer__link" color="text900" v-for="{ name, href } of footerLink" :to="href">
+      <Link class="footer__link" color="text900" v-for="({ name, href }, index) of footerLink" :key="index" :to="href">
       {{ name }}
       </Link>
       <SelectComponent class="footer__select" title="Change region" name="region" id="region" :options="region" />

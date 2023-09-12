@@ -63,3 +63,5 @@ export const MONTH_NAMES = [
   "November",
   "December",
 ];
+
+export const FEE = 24

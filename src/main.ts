@@ -4,6 +4,7 @@ import router from '@/router'
 import { createPinia } from 'pinia'
 import piniaPersiststate from 'pinia-plugin-persistedstate'
 import '@/assets/styles/reset.css'
+import '@/helpers/fetch';
 
 const pinia = createPinia()
 pinia.use(piniaPersiststate)

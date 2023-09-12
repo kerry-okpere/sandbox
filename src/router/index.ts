@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AuthLayout from "@/layout/auth.vue";
 import DefaultLayout from "@/layout/default.vue";
-import { useAuthStore, useLoginStore } from "@/store/auth";
+import { useAuthStore, useStore } from "@/store";
 
 const routes = [
   {
@@ -50,7 +50,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
-  const loginStore = useLoginStore();
+  const loginStore = useStore();
   const authStore = useAuthStore();
 
   if(!loginStore.isLoggedIn && !authStore.isAuthenticated && to.name !== "Login") {

@@ -6,11 +6,11 @@ import { computed, reactive } from "vue";
 import Button from "@/components/Button.vue";
 import Link from "@/components/Link.vue"
 import { useRouter } from "vue-router";
-import { useLoginStore } from "@/store/auth";
+import { useStore } from "@/store/index";
 import { PASSWORD_LENGTH } from "@/constants"
 
 const router = useRouter()
-const store = useLoginStore()
+const store = useStore()
 
 const state = reactive({
   form: {
@@ -103,4 +103,4 @@ const handleSubmit = async (event: Event) => {
     }
   }
 }
-</style>
+</style>@/store

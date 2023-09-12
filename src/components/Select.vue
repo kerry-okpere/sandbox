@@ -19,21 +19,26 @@ defineProps({
   },
   title: {
     type: String
-  }
+  },
+  modelValue: String
 })
+
+const emit = defineEmits(['update:modelValue'])
+
+const handleChange = (event: Event) =>
+  emit('update:modelValue', (event.target as HTMLInputElement).value)
+
 </script>
 <template>
   <div class="select">
     <Label class="select__label" weight="500" :for="id">{{ title }}</Label>
-    <select class="select__element" :name="name" :id="id">
-      <option as="option" value=""></option>
-      <option v-for="{ name, value } in options" :value="value">{{ name }}</option>
+    <select :value="modelValue" class="select__element" :name="name" :id="id" @change="handleChange($event)">
+      <option v-for="({ name, value }, index) in options" :key="index" :value="value">{{ name }}</option>
     </select>
     <Chevron />
   </div>
 </template>
 <style lang="scss" scoped>
-// Todo: ensure that selector is triggered open when option name is clicked
 .select {
   display: inline-flex;
   align-items: center;
@@ -59,7 +64,6 @@ defineProps({
     }
   }
 
-  &__label {
-  }
+  &__label {}
 }
 </style>

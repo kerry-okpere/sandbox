@@ -66,7 +66,7 @@ const toggleNestedLink = (index: number) => {
 <template>
   <nav class="nav">
     <ul>
-      <li v-for="({ name, to, nestedLink, icon }, index) in navLinks">
+      <li v-for="({ name, to, nestedLink, icon }, index) in navLinks" :key="index">
         <NavigationLink 
           :to="to" 
           :icon="icon" 
@@ -75,7 +75,7 @@ const toggleNestedLink = (index: number) => {
           @click="toggleNestedLink(index)" 
         />
         <ul v-if="activeDropdown === index">
-          <li v-for="link in nestedLink" >
+          <li v-for="(link, keyIndex) in nestedLink" :key="keyIndex">
             <NavigationLink 
               is-nexted-link 
               :to="link.href" 

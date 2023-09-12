@@ -24,7 +24,7 @@ defineEmits(['update:modelValue'])
 <template>
   <span>
     <Label :for="id" :class="{ 'visually-hidden': labelIsHidden }">{{ label }}</Label>
-    <Input v-bind="$attrs" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
+    <Input :id="id" v-bind="$attrs" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
   </span>
 </template>
 <style lang="scss" scoped>

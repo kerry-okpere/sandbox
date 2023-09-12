@@ -7,12 +7,6 @@ class API {
     this.token = null;
   }
 
-  private get headers() {
-    return {
-      Authorization: `Bearer ${this.token}`,
-    };
-  }
-
   static async handleResponse(response: Response) {
     if (response.status >= 200 && response.status < 300) {
       return response.json()
@@ -25,14 +19,10 @@ class API {
     return `${this.uri}/${path}`;
   }
 
-  authorize = (token: string) => {
-    this.token = token;
-  };
-
-  get = (path: string) => {
+  // Todo: add interceptor to api
+  get = <T>(path: string): Promise<T> => {
     const options = {
       method: "GET",
-      headers: this.headers,
     };
 
     return fetch(this.getURL(path), options).then(API.handleResponse);
@@ -41,7 +31,6 @@ class API {
   post = <T>(path: string, body: any): Promise<T> => {
     const options = {
       method: "POST",
-      headers: this.headers,
       body: JSON.stringify(body),
     };
 
