@@ -7,7 +7,7 @@
 [Demo](https://www.loom.com/share/7228c049cf004d329c827ea9c73e7bfe)
 
 ## ⚙️ Usage
-Use the env variable format in the `.env.example` file, to setup your own environment variables
+> Use the env variable format in the `.env.example` file, to setup your own environment variables
 
 Install packages 
 
