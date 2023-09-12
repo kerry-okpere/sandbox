@@ -36,8 +36,6 @@ const currentFlag = computed(() => {
   return FLAGS[key]
 })
 
-console.log(currentFlag)
-
 </script>
 <template>
   <div class="input">

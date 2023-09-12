@@ -39,8 +39,8 @@ const targetCurrencies = computed(() => {
 })
 
 const setDefaults = async () => {
-  await fetchCurrencies()
-
+  if (!store.currencies.length) await fetchCurrencies()
+  
   source.currency = sourceCurrencies.value[0].value
   target.currency = targetCurrencies.value[0].value
 
@@ -107,7 +107,7 @@ const handleCurrencyChange = async (type: 'source' | 'target', currency: string)
 }
 
 onMounted(() => {
-  if (!store.currencies.length) setDefaults()
+  setDefaults()
 })
 
 </script>
